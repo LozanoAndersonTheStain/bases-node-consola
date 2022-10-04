@@ -1,22 +1,26 @@
 const fs = require('fs')
 
-const crearArchivo = async (base = 5) => {
+const crearArchivo = async (base = 5, listar = false, hasta = 10) => {
   try {
-    console.log('----------------------')
-    console.log('Tablas de multiplicar', base)
-    console.log('----------------------')
-
     let tabla = ''
+    let tablaArchivo = ''
 
-    for (i = 1; i <= 12; i++) {
-      tabla += `${base} x ${i} = ${base * i}\n`
+    for (i = 1; i <= hasta; i++) {
+      tabla += `${base.toString().blue} x ${i.toString().blue} = ${base * i}\n`
+      tablaArchivo += `${base} x ${i} = ${base * i}\n`
     }
 
-    console.log(tabla)
+    if (listar) {
+      console.log('----------------------'.brightRed)
+      console.log('Tabla del'.cyan, base)
+      console.log('----------------------'.brightRed)
+
+      console.log(tabla)
+    }
 
     const archivo = `tabla-${base}.txt`
 
-    fs.writeFile(archivo, tabla, (err) => {
+    fs.writeFile(`./tablas/${archivo}`, tablaArchivo, (err) => {
       if (err) throw err
     })
 
